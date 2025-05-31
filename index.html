@@ -16,127 +16,138 @@
 
 
 <body>
-<header>
+    <header>
 
-    <!-- navbar -->
-    <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
-        <div class="container">
-            <a class="navbar-brand" href="#">Bool Factory</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Servizi</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contatti</a>
-                    </li>
-                </ul>
+        <!-- navbar -->
+        <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+            <div class="container">
+                <a class="navbar-brand" href="#">Bool Factory</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Servizi</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contatti</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
+        </nav>
+
+    </header>
+
+    <div class="container py-4">
+        <div class="row">
+
+            <!-- main/form -->
+            <main class="col-md-8">
+                <form class="row g-3" id="form-input">
+
+                    <!-- input -->
+                    <div class="col-12">
+                        <h1>Richiesta Preventivo</h1>
+                        <p>Compila il form per richiedere un preventivo per i nostri servizi di sviluppo</p>
+                    </div>
+                    <div class="col-12">
+                        <label for="input-name" class="form-label">Nome</label>
+                        <input type="text" class="form-control" name="name" id="input-name" required>
+                    </div>
+                    <div class="col-12">
+                        <label for="input-surname" class="form-label">Cognome</label>
+                        <input type="text" class="form-control" name="surname" id="input-surname" required>
+                    </div>
+                    <div class="col-12">
+                        <label for="input-email" class="form-label">Email</label>
+                        <input type="email" class="form-control" name="email" id="input-email" required>
+                    </div>
+
+                    <!-- select -->
+                    <div class="col-12">
+                        <label for="input-type-job" class="form-label">Tipo di lavoro</label>
+                        <select id="input-type-job" class="form-select" required>
+                            <option value="" selected>seleziona il tipo di lavoro</option>
+                            <option value="backend-dev">Backed Development</option>
+                            <option value="frontend-dev">Frontend Development</option>
+                            <option value="project-analysis">Project Analysis</option>
+                        </select>
+                    </div>
+
+                    <!-- textarea -->
+                    <div class="col-12">
+                        <label for="comment" class="form-label">Textarea con bootstrap 5</label>
+                        <textarea class="form-control" id="comment"
+                            style="height: 100px"></textarea>
+                    </div>
+
+                    <!-- promo -->
+                    <div class="col-12">
+                        <label for="input-promo" class="form-label">Codice Promozionale (opzionale)</label>
+                        <input type="text" class="form-control" name="promo-code" id="input-promo">
+                    </div>
+                    
+                    <!-- checkbox -->
+                    <div class="col-12">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="check-policy" required>
+                            <label class="form-check-label" for="check-policy">
+                                Accetto la Privacy Policy
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- button/final price -->
+                    <div class="col-12">
+                        <div class="row align-items-center">
+                            <div class="col-md-6 text-center">
+                                <button type="submit" class="btn btn-primary">Calcola preventivo</button>
+                            </div>   
+                            <div class="col-md-6 text-center">
+                                <div>
+                                    <p class="fw-bold">Prezzo finale</p>
+                                    <p id="final-price">euro 200</p>
+                                </div>
+                            </div>  
+                        </div>
+                    </div>
+                </form>
+            </main>
+
+            <!-- aside/card -->
+            <aside class="col-md-4">
+
+                <div class="card">
+                    <img src="https://picsum.photos/300/200" class="card-img-top" alt="picsum-image">
+                    <div class="card-body">
+                        <h5 class="card-title">I nostri contatti</h5>
+                        <p class="card-text">Se hai bisogno di aiuto puoi contattarci:</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">help@boolfactory.test</li>
+                        <li class="list-group-item">+1122334455</li>
+                    </ul>
+                    <div class="card-body">
+                        <a href="#" class="card-link">help desk</a>
+                    </div>      
+                </div>
+
+            </aside>
         </div>
-    </nav>
-
-</header>
-
-<div class="container py-4">
-    <div class="row">
-
-        <!-- main/form -->
-        <main class="col-md-8">
-            <form class="row g-3">
-                <div class="col-12">
-                    <h1>Richiesta Preventivo</h1>
-                    <p>Compila il form per richiedere un preventivo per i nostri servizi di sviluppo</p>
-                </div>
-                <div class="col-12">
-                    <label for="input-name" class="form-label">Nome</label>
-                    <input type="text" class="form-control" name="name" id="input-name">
-                </div>
-                <div class="col-12">
-                    <label for="input-surname" class="form-label">Cognome</label>
-                    <input type="text" class="form-control" name="surname" id="input-surname">
-                </div>
-                <div class="col-12">
-                    <label for="input-email" class="form-label">Email</label>
-                    <input type="email" class="form-control" name="email" id="input-email">
-                </div>
-
-                <div class="col-12">
-                    <label for="input-type-job" class="form-label">Tipo di lavoro</label>
-                    <select id="input-type-job" class="form-select">
-                        <option value="" selected>seleziona il tipo di lavoro</option>
-                        <option value="backend-dev">Backed Development</option>
-                        <option value="frontend-dev">Frontend Development</option>
-                        <option value="project-analysis">Project Analysis</option>
-                    </select>
-                </div>
-
-                <div class="col-12">
-                    <label for="comment" class="form-label">Textarea con bootstrap 5</label>
-                    <textarea class="form-control" id="comment"
-                        style="height: 100px"></textarea>
-                </div>
-
-                
-                <div class="col-12">
-                    <label for="input-promo" class="form-label">Codice Promozionale (opzionale)</label>
-                    <input type="text" class="form-control" name="promo-code" id="input-promo">
-                </div>
-                
-                <div class="col-12">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="check-policy">
-                        <label class="form-check-label" for="check-policy">
-                            Accetto la Privacy Policy
-                        </label>
-                    </div>
-                </div>
-
-                <div class="col-12">
-                    <div class="row align-items-center">
-                        <div class="col-md-6 text-center">
-                            <button type="submit" class="btn btn-primary">Calcola preventivo</button>
-                        </div>   
-                        <div class="col-md-6 text-center">
-                            <div>
-                                <p class="fw-bold">Prezzo finale</p>
-                                <p>euro 200</p>
-                            </div>
-                        </div>  
-                    </div>
-            </form>
-        </main>
-
-        <!-- aside/card -->
-        <aside class="col-md-4">
-            <div class="card">
-                <img src="https://picsum.photos/300/200" class="card-img-top" alt="picsum-image">
-                <div class="card-body">
-                    <h5 class="card-title">I nostri contatti</h5>
-                    <p class="card-text">Se hai bisogno di aiuto puoi contattarci:</p>
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">help@boolfactory.test</li>
-                    <li class="list-group-item">+1122334455</li>
-                </ul>
-                <div class="card-body">
-                    <a href="#" class="card-link">help desk</a>
-                </div>        </div>
-        </aside>
     </div>
-</div>
 
-<footer class="bg-dark text-white">
-        <div class="container d-flex justify-content-center pt-3">
-            <p class="navbar-brand">@ 2024 - Tutti i diritti riservati</p>
-        </div>
-</footer>
+    <!-- footer -->
+    <footer class="bg-dark text-white">
+            <div class="container d-flex justify-content-center pt-3">
+                <p class="navbar-brand">@ 2024 - Tutti i diritti riservati</p>
+            </div>
+    </footer>
 
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
