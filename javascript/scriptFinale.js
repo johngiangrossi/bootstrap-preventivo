@@ -1,29 +1,17 @@
-console.log('bootstrap-preventivo')
+console.log('bootstrap-preventivo-finale')
 
 // prendo gli elementi dal DOM
 const elementForm = document.getElementById('form-input')  //object
 const inputPromo = document.getElementById('input-promo')  //object
 
-console.log(elementForm, inputPromo);
-
+// console.log(elementForm, inputPromo);
 
 // prendo gli elementi dal form
 const inputTypeJob = elementForm.querySelector('#input-type-job')  //object
 const outputFinalPriceFirstNumber = elementForm.querySelector('#final-price-first-number')  //object
 const outputFinalPriceSecondNumber = elementForm.querySelector('#final-price-second-number')  //object
 
-console.log(inputTypeJob, outputFinalPriceFirstNumber, outputFinalPriceSecondNumber);
-
-
-// funzione per gli elementi di input
-function getDataInput() {
-    const typeJob = inputTypeJob.value  //string
-    const promo = inputPromo.value  //string
-    return {
-        typeJob,
-        promo
-    }    //object
-}
+// console.log(inputTypeJob, outputFinalPriceFirstNumber, outputFinalPriceSecondNumber);
 
 
 // constanti delle ore / prezzo all'ora / array promo
@@ -33,8 +21,20 @@ const priceFrontendSingleHour = 15.30  //number
 const priceAnalistSingleHour = 33.60  //number
 const arrayPromo = ['YHDNU32', 'JANJC63', 'PWKCN25', 'SJDPO96', 'POCIE24']  //array(string)
 
-console.log(hours, priceAnalistSingleHour, priceBackendSingleHour, priceFrontendSingleHour);
+// console.log(hours, priceAnalistSingleHour, priceBackendSingleHour, priceFrontendSingleHour);
 
+
+
+// funzioni
+// funzione per gli elementi di input
+function getDataInput() {
+    const typeJob = inputTypeJob.value  //string
+    const promo = inputPromo.value  //string
+    return {
+        typeJob,
+        promo
+    }    //object
+}
 
 // funzione per calcolare il preventivo
 function getBudget(price, hour) {
@@ -46,52 +46,20 @@ function getBudget(price, hour) {
 function getDiscountPrice(price, discount) {
     discountPrice = (price / 100) * discount
     finalPrice = price - discountPrice
-    return finalPrice
-    // return number
+    return finalPrice   // return number
   }
-
 
 // funzione per cercare nel array
 function isValidPromo(array, includedWord) {
-    /*
-    let isIncluded = false
-    for (let i = 0; i < array.length; i++) {
-        const stringPromo = array[i];
-        console.log(stringPromo);
-        if (stringPromo === includedWord) {
-            isIncluded = true
-            break
-        } 
-    }
-    return isIncluded //boolean
-    */
-    return array.includes(includedWord)
+    return array.includes(includedWord)  //boolean
 }
-
     
-    
-    
-// event listener per verificare se il codice promo è corretto no
-inputPromo.addEventListener('input', function (event) {
-    event.preventDefault()
-
-    const inputData = getDataInput()
-
-    if (isValidPromo(arrayPromo, inputData.promo)) {
-        inputPromo.classList.remove('is-invalid')
-        inputPromo.classList.add('is-valid')
-    } else {
-        inputPromo.classList.remove('is-valid')
-        inputPromo.classList.add('is-invalid')
-    }
-    console.dir(inputPromo);
-})
 
 
 
+// event listener
 
-
-// aggiungo event listener
+// event listener per il form
 elementForm.addEventListener('submit', function (event) {
     
     // elimino comportamento default submit
@@ -99,7 +67,20 @@ elementForm.addEventListener('submit', function (event) {
    
     // metto tutti gli input in un object
     const inputData = getDataInput()  //object
-    console.log(inputData);
+    let finalPrice  //number
+    // console.log(inputData);
+
+
+    // mostro all'utente se il codice promo è valido o no
+    if (isValidPromo(arrayPromo, inputData.promo)) {
+        inputPromo.classList.remove('is-invalid')
+        inputPromo.classList.add('is-valid')
+    } else {
+        inputPromo.classList.remove('is-valid')
+        inputPromo.classList.add('is-invalid')
+    }
+    // console.dir(inputPromo);
+
 
     //verifico quale option stata selezionata e calcolo prezzo finale
     if (inputData.typeJob === 'backend-dev') {
@@ -114,49 +95,22 @@ elementForm.addEventListener('submit', function (event) {
         finalPrice = getDiscountPrice(finalPrice, 25)
     }
     
-    console.log(finalPrice);
+    // console.log(finalPrice);
     
 
     // divido in due parti il prezzo finale e lo stampo sulla pagina
     const finalPriceString = finalPrice.toFixed(2).toString()  //string
-    console.log(finalPriceString);
-
-   
-    const pointIndex = finalPriceString.indexOf('.')
-    console.log(pointIndex);
+    // console.log(finalPriceString);
+    
+    const pointIndex = finalPriceString.indexOf('.')  //number
+    // console.log(pointIndex);
     
     const firstNumberFinalPrice = finalPriceString.substring(0, pointIndex)
-    console.log(firstNumberFinalPrice);
     const secondNumberFinalPrice = finalPriceString.substring(pointIndex + 1)
-    console.log(secondNumberFinalPrice)
+    // console.log(secondNumberFinalPrice, firstNumberFinalPrice)
 
     outputFinalPriceFirstNumber.classList.add('fw-bold', 'fs-1')
     outputFinalPriceFirstNumber.textContent = `\u20AC ${firstNumberFinalPrice}`
     outputFinalPriceSecondNumber.classList.add('fw-light', 'fs-4')
     outputFinalPriceSecondNumber.textContent = `,${secondNumberFinalPrice}`
-     
-    /*
-    let firstNumberFinalPrice = ''  //string
-    let secondNumberFinalPrice = ''  //string
-    const pointIndex = finalPriceString.indexOf('.')
-    for (let i = 0; i < finalPriceString.length; i++) {
-        const char = finalPriceString[i];
-        console.log(char);
-        if (i < pointIndex) {
-            firstNumberFinalPrice += char
-        } else if (i > pointIndex) {
-            secondNumberFinalPrice += char
-        }
-    }
-    console.log(firstNumberFinalPrice)
-    console.log(secondNumberFinalPrice);
-    outputFinalPriceFirstNumber.classList.add('fw-bold', 'fs-1')
-    outputFinalPriceFirstNumber.textContent = `\u20AC ${firstNumberFinalPrice}`
-    outputFinalPriceSecondNumber.classList.add('fw-light', 'fs-4')
-    outputFinalPriceSecondNumber.textContent = `,${secondNumberFinalPrice}`
-    */
 })
-
-
-
-
