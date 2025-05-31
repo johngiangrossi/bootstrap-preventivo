@@ -1,0 +1,28 @@
+/* css reset */
+
+
+/* generics */
+
+
+/* utils */
+
+
+/* debug */
+.debug .container {
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+.debug .row {
+    border: 2px solid red;
+    padding: 24px;
+    border-radius: 10px;
+}
+
+.debug .row>* {
+    border: 2px solid cornflowerblue;
+    padding: 24px;
+    border-radius: 10px;
+}
+
+
