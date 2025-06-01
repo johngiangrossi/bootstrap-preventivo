@@ -60,7 +60,6 @@ function isValidPromo(array, includedWord) {
         console.log(stringPromo);
         if (stringPromo === includedWord) {
             isIncluded = true
-            break
         } 
     }
     return isIncluded //boolean
@@ -121,19 +120,18 @@ elementForm.addEventListener('submit', function (event) {
     const finalPriceString = finalPrice.toFixed(2).toString()  //string
     console.log(finalPriceString);
 
-   
     const pointIndex = finalPriceString.indexOf('.')
     console.log(pointIndex);
     
     const firstNumberFinalPrice = finalPriceString.substring(0, pointIndex)
     console.log(firstNumberFinalPrice);
-    const secondNumberFinalPrice = finalPriceString.substring(pointIndex + 1)
+    const secondNumberFinalPrice = finalPriceString.substring(pointIndex)
     console.log(secondNumberFinalPrice)
 
     outputFinalPriceFirstNumber.classList.add('fw-bold', 'fs-1')
     outputFinalPriceFirstNumber.textContent = `\u20AC ${firstNumberFinalPrice}`
     outputFinalPriceSecondNumber.classList.add('fw-light', 'fs-4')
-    outputFinalPriceSecondNumber.textContent = `,${secondNumberFinalPrice}`
+    outputFinalPriceSecondNumber.textContent = secondNumberFinalPrice
      
     /*
     let firstNumberFinalPrice = ''  //string
@@ -158,5 +156,60 @@ elementForm.addEventListener('submit', function (event) {
 })
 
 
+// creo dinamicamente option
+selectOption = [
+    {
+        text: 'seleziona il tipo di lavoro',
+        value: ''
+    },
+    {
+        text: 'Backed Development',
+        value: 'backend-dev'
+    },
+    {
+        text: 'Frontend Development',
+        value: 'frontend-dev'
+    },
+    {
+        text: 'Project Analysis',
+        value: 'project-analysis'
+    },
+]
 
 
+console.log(inputTypeJob);
+
+
+/*
+// creo gli option
+const optionEmpty = document.createElement('option')
+const optionBackendDev = document.createElement('option')
+const optionFrontDev = document.createElement('option')
+const optionProjectAnalisis = document.createElement('option')
+
+// assegno il text e value agli option creati
+optionEmpty.textContent = selectOption[0].text
+optionEmpty.value = selectOption[0].value
+document.getElementById('input-type-job').appendChild(optionEmpty)
+
+optionBackendDev.textContent = selectOption[1].text
+optionBackendDev.value = selectOption[1].value
+document.getElementById('input-type-job').appendChild(optionBackendDev)
+
+optionFrontDev.textContent = selectOption[2].text
+optionFrontDev.value = selectOption[2].value
+document.getElementById('input-type-job').appendChild(optionFrontDev)
+
+optionProjectAnalisis.textContent = selectOption[3].text
+optionProjectAnalisis.value = selectOption[3].value
+document.getElementById('input-type-job').appendChild(optionProjectAnalisis)
+*/
+
+// ciclo ogni elemento array e creo per ognuno option con i text e value corrispondente
+selectOption.forEach(element => {
+    const option = document.createElement('option')
+
+    option.textContent = element.text
+    option.value = element.value
+    document.getElementById('input-type-job').appendChild(option)
+});
