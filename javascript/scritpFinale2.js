@@ -16,9 +16,6 @@ const outputFinalPriceSecondNumber = elementForm.querySelector('#final-price-sec
 
 // constanti delle ore / prezzo all'ora / array promo
 const hours = 10  //number
-const priceBackendSingleHour = 20.50  //number
-const priceFrontendSingleHour = 15.30  //number
-const priceAnalistSingleHour = 33.60  //number
 const arrayPromo = ['YHDNU32', 'JANJC63', 'PWKCN25', 'SJDPO96', 'POCIE24']  //array(string)
 
 // console.log(hours, priceAnalistSingleHour, priceBackendSingleHour, priceFrontendSingleHour);
@@ -34,17 +31,21 @@ selectOption = [
     {
         text: 'Backed Development',
         value: 'backend-dev',
+        price: 20.50
     },
     {
         text: 'Frontend Development',
         value: 'frontend-dev',
+        price: 15.30
     },
     {
         text: 'Project Analysis',
         value: 'project-analysis',
+        price: 33.60
     },
 ]
 // console.log(selectOption);
+
 
 // ciclo ogni elemento array e creo per ognuno option con i text e value corrispondente
 selectOption.forEach(getOption)
@@ -90,6 +91,33 @@ function getOption(element) {
 
 
 
+// funzione per il prezzo formattato
+function getFormattedPrice(price) {
+    const formattedPrice = new Intl.NumberFormat("it-IT", { style: "currency", currency: "EUR" , maximumFractionDigits: 2, minimumFractionDigits: 2 }).format(
+        price,
+    )  //string
+    const pointIndex = formattedPrice.lastIndexOf('.')  //number
+    const commaIndex = formattedPrice.lastIndexOf(',')  //number
+    console.log(pointIndex , commaIndex);
+    
+    let firstNumbersPrice
+    let secondNumbersPrice
+
+    if (pointIndex > commaIndex) {
+        firstNumbersPrice = formattedPrice.substring(0, pointIndex)
+        secondNumbersPrice = formattedPrice.substring(pointIndex)
+    } else {
+        firstNumbersPrice = formattedPrice.substring(0, commaIndex)
+        secondNumbersPrice = formattedPrice.substring(commaIndex)
+    }
+    // console.log(secondNumbersPrice, firstNumbersPrice)
+    resultPrice = { firstNumber: firstNumbersPrice, secondNumber: secondNumbersPrice }
+    return resultPrice
+}
+
+
+
+
 // event listener
 // event listener per il form
 elementForm.addEventListener('submit', function (event) {
@@ -102,52 +130,39 @@ elementForm.addEventListener('submit', function (event) {
     let finalPrice  //number
     // console.log(inputData);
 
+    // cerco nel array l'object che ha il valore selezionato e lo assegno ad una variabile
+    const objectSelected = selectOption.find(object => object.value === inputData.typeJob);
+    /*
+    const objectSelected = selectOption.find(function isIncluded(object) {
+        return object.value === inputData.typeJob;  //boolean
+    })
+    */
+    // console.log(objectSelected);
+    
+
+
+    // calcolo il prezzo finale
+    finalPrice = getBudget(objectSelected.price, hours)
+    console.log(finalPrice);
 
     // mostro all'utente se il codice promo è valido o no
     if (isValidPromo(arrayPromo, inputData.promo)) {
         inputPromo.classList.remove('is-invalid')
         inputPromo.classList.add('is-valid')
+        finalPrice = getDiscountPrice(finalPrice, 25)
     } else {
         inputPromo.classList.remove('is-valid')
         inputPromo.classList.add('is-invalid')
     }
-    // console.dir(inputPromo);
-    
 
-    //verifico quale option stata selezionata e calcolo prezzo finale
-    if (inputData.typeJob === 'backend-dev') {
-        finalPrice = getBudget(priceBackendSingleHour, hours)
-    } else if (inputData.typeJob === 'frontend-dev') {
-        finalPrice = getBudget(priceFrontendSingleHour, hours)
-    } else {
-        finalPrice = getBudget(priceAnalistSingleHour, hours)
-    }
-    
-    if (isValidPromo(arrayPromo, inputData.promo)) {
-        finalPrice = getDiscountPrice(finalPrice, 25)
-    }
-    
-    // console.log(finalPrice);
-    
+    // formatto il prezzo
+    resultPrice = getFormattedPrice(finalPrice)
 
-    // formatto il prezzo finale
-    const formattedFinalPrice = new Intl.NumberFormat("it-IT", { style: "currency", currency: "EUR" }).format(
-        finalPrice,
-      )  //string
-    // console.log(formattedFinalPrice);
-
-    // divido in due parti il prezzo finale e lo stampo sulla pagina
-    const pointIndex = formattedFinalPrice.indexOf(',')  //number
-    // console.log(pointIndex);
-    
-    const firstNumberFinalPrice = formattedFinalPrice.substring(0, pointIndex)
-    const secondNumberFinalPrice = formattedFinalPrice.substring(pointIndex)
-    // console.log(secondNumberFinalPrice, firstNumberFinalPrice)
-
+    // mostro utente il risultato
     outputFinalPriceFirstNumber.classList.add('fw-bold', 'fs-1')
-    outputFinalPriceFirstNumber.textContent = firstNumberFinalPrice
+    outputFinalPriceFirstNumber.textContent = resultPrice.firstNumber
     outputFinalPriceSecondNumber.classList.add('fw-light', 'fs-4')
-    outputFinalPriceSecondNumber.textContent = secondNumberFinalPrice
+    outputFinalPriceSecondNumber.textContent = resultPrice.secondNumber
+   
 })
-
 
